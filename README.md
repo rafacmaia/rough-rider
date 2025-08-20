@@ -1,51 +1,145 @@
 # 🎯 Rough Rider: Tournament Tracker
 
-![Status](https://img.shields.io/badge/status-in--development-yellow)
+![Status](https://img.shields.io/badge/status-in--development-yellow) ![License](https://img.shields.io/badge/license-MIT-blue)
 
-This is the web app everyone's been waiting for: a **Rough Rider** tournament
-tracker.
-It handles team creation, tournament bracket generation, score tracking, and
-overall game stats — with access control for referees, the designated "Yves",
-and viewers.
+The web app no one's been waiting for is here, no more scrambling for paper
+and pen and wasting precious cabin time with convoluted tournament systems
+when you just want to get a bit Rough with your fellow Riders.
+The **Rough
+Rider App** takes care of it all so you can just relax and throw
+some darts at beer cans the way you were meant to.
+
+The app manages team selection, tournament setup, score tracking, and player &
+team stats. Built with React, Next.js, TailwindCSS, and Firebase.
 
 ---
 
-## 🚀 Features
+## 🪑 What is Rough Rider?
 
-- Create and manage teams
-- Generate tournament brackets
-- Track scores in real time
-- View team stats and rankings
-- Ref-only input with viewer access
+**Rough Rider** (also known as *Beer Darts* in less professional settings) is a
+game of
+mysterious origins consisting of teams of 2 players
+sitting opposite each other, roughly 4-5 meters apart, and taking turns
+throwing darts at each
+opposing
+player's canned drink of choice. The team that pierces their opponent's two
+cans
+first takes the win.
+
+---
+
+## 🚀 Key Features
+
+**Legend:** ✅ Complete • 🚧 In Development • 📋 Planned
+
+### 🚧 Team Management
+
+- 🚧 Random team assignment
+- ✅ Manual team assignment
+- 🚧 Add/remove players
+
+### 🚧 Tournament Setup
+
+*Auto-generate brackets depending on the selected tournament style*
+
+- ✅ Single elimination
+- 🚧 Group phase + playoffs
+- 📋 Round-robin + playoffs
+- 📋 Allow bracket edits/customizations
+
+### 🚧 Match Tracking
+
+- ✅ Track player & team scores during matches
+- 📋 Live match updates to support multiple viewers
+- 📋 Score updates locked to a "referee" account
+
+### 🚧 Tournament Management
+
+*Auto-advance teams as matches are completed*
+
+- ✅ Single elimination
+- 🚧 Group phase + playoffs
+- 📋 Round-robin + playoffs
+
+### 🚧 View team and player stats
+
+### 📋 Additional features
+
+- 📋 En Français!
+- 📋 View past tournaments
+- 📋 Optional match time-tracking
+- 📋 Notify the "next-up" team so they can get ready
+- 📋 Upload team & tournament photos
+
+---
+
+## ✨ Demo
+
+<details>
+<summary><b>Click to view screenshots of latest version</b></summary>
+<h3>Landing:</h3>
+<img src="docs/screenshots/landing.jpeg" width="420" alt="Landing Page">
+
+<h3>Team Selection:</h3>
+<img src="docs/screenshots/team-selection-1.jpeg" width="420" alt="Team Selection Start">
+<img src="docs/screenshots/team-selection-2.jpeg" width="420" alt="Team Selection In Progress">
+<img src="docs/screenshots/team-selection-3.jpeg" width="420" alt="Team Selection Confirmation">
+
+<h3>Tournament Setup:</h3>
+<img src="docs/screenshots/tournament-setup.jpeg" width="420" alt="Tournament Setup">
+<img src="docs/screenshots/tournament-bracket-1.jpeg" width="420" alt="Tournament Bracket Start">
+<img src="docs/screenshots/tournament-bracket-2.jpeg" width="420" alt="Tournament Bracket End">
+
+<h3>Match tracking:</h3>
+<img src="docs/screenshots/match-1.jpeg" width="420" alt="Match Start">
+<img src="docs/screenshots/match-2.jpeg" width="420" alt="Match In Progress">
+<img src="docs/screenshots/match-3.jpeg" width="420" alt="Match Complete">
+
+</details>
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** React, Next.js, Tailwind CSS
-- **Backend & Auth:** Firebase, Firestore, Firebase Auth
-- **Other Tools:** React Hook Form, Framer Motion, Heroicons, Vercel (for
-  deployment)
+- React
+- Next.js
+- Tailwind CSS
+- Firebase (Auth, Firestore)
+- Vercel (deployment)
 
 ---
 
-## 🧪 Status
+## ⚙️ Running the App while in Development
 
-![Status](https://img.shields.io/badge/status-in--development-yellow)
-
-This is a work in progress being built ahead of a real-world event. Updates and
-polish coming fast.
-
----
-
-## 📦 Getting Started
-
-### 1. Clone the repo
+#### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/rough-rider.git
+git clone https://github.com/rafacmaia/rough-rider.git
 cd rough-rider
 ```
+
+#### 2. Install dependencies: `npm install`
+
+#### 3. Start the dev server: `npm run dev`
+
+#### 4. Access the indicated localhost, usually http://localhost:3000, and start your tournament!
+
+---
+
+## 🤝 Contributing
+
+This is mostly a personal practice project around a game my friends and I
+occasionally play, but ideas, suggestions, issues, and PRs are welcome, don't
+hesitate to reach out!
+
+---
+
+## 📜 License
+
+MIT License – feel free to use, share, and remix it at will. If you do, a link
+back here would make my day!
+
+---
 
 ## 🎨 Attributions
 
@@ -59,3 +153,4 @@ cd rough-rider
   by [Game Icons.net](https://game-icons.net/?ref=svgrepo.com)
   from [SVG Repo](https://www.svgrepo.com/)
   ([CC Attribution License](https://creativecommons.org/licenses/by/4.0/))
+

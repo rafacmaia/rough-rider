@@ -1,7 +1,7 @@
 "use client";
-import { createTournament } from "@/lib/utils";
 import { Skull, Swords, ScrollText } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { createTournament } from "@fb/firestore";
 
 export default function TournamentSetupPage() {
   const route = useRouter();

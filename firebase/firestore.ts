@@ -12,7 +12,7 @@ import {
   increment,
   addDoc,
 } from "firebase/firestore";
-import { db } from "./firebase";
+import { db } from "./config";
 import players from "./seed-data";
 import { random } from "nanoid";
 

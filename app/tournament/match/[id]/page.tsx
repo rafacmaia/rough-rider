@@ -1,13 +1,13 @@
 "use client";
 import { use, useEffect, useState } from "react";
-import { getMatch, updateMatch } from "@/lib/utils";
 import { ArrowBigRight, X } from "lucide-react";
-import { DocumentData } from "@firebase/firestore";
-import BeerCan from "@/app/assets/beer-can.svg";
-import BeerCanCrushed from "@/app/assets/beer-can-crushed.svg";
-import Dart from "@/app/assets/dart.svg";
-import Image from "next/image";
+import { DocumentData } from "firebase/firestore";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { getMatch, updateMatch } from "@fb/firestore";
+import BeerCan from "@/public/beer-can-icon.svg";
+import BeerCanCrushed from "@/public/beer-can-crushed-icon.svg";
+import Dart from "@/public/dart-icon.svg";
 
 interface MatchPageProps {
   params: Promise<{ id: string }>;
@@ -187,7 +187,7 @@ function TeamDisplay({
           <Image
             className="absolute bottom-0"
             src={crushedCans[0] ? BeerCanCrushed : BeerCan}
-            alt="beer can"
+            alt="Beer can icon. Shown crushed if the can has been pierced."
           />
         </button>
       </div>

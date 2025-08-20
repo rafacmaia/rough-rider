@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <main className="flex h-dvh flex-col items-center justify-center gap-12">
       <h1 className="font-header text-6xl font-extrabold tracking-wide">
-        Rough Riders
+        Rough Rider
       </h1>
       <Link
         href="./teams"

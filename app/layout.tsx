@@ -1,4 +1,4 @@
-import { Cabin, Cabin_Sketch, Gaegu, Calistoga } from "next/font/google";
+import { Cabin, Cabin_Sketch, Calistoga, Gaegu } from "next/font/google";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -40,9 +40,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="h-full">
       <body
-        className={`${cabin.variable} ${cabin_sketch.variable} ${calistoga.variable} ${gaegu.variable} flex h-screen flex-col items-center`}
+        className={`${cabin.variable} ${cabin_sketch.variable} ${calistoga.variable} ${gaegu.variable} flex h-full min-h-dvh w-screen min-w-80 flex-col items-center overflow-x-hidden bg-background text-foreground`}
       >
         {children}
       </body>

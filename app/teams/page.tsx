@@ -1,10 +1,10 @@
 "use client";
 import { JSX, useState, useEffect } from "react";
-import players from "../../lib/seed-data";
-import { shuffleArray, addTeams } from "@/lib/utils";
 import { ArrowBigRight, Flame, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { shuffleArray, addTeams } from "@fb/firestore";
 import PlayerGrid from "./_components/PlayerGrid";
+import players from "@fb/seed-data";
 
 export default function TeamsPage() {
   const router = useRouter();

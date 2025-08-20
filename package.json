@@ -2,6 +2,13 @@
   "name": "rough-rider",
   "version": "0.1.0",
   "private": true,
+  "description": "Companion app for Rough Rider (beer darts) tournaments",
+  "author": "Zou Labs <rfpcmaia@gmail.com> (https://github.com/rafacmaia)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rafacmaia/rough-rider"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",

@@ -1,4 +1,4 @@
-import { getMatches, getTeams } from "@/lib/utils";
+import { getMatches, getTeams } from "@/firebase/firestore";
 import { useState, useEffect } from "react";
 import { DocumentData } from "@firebase/firestore";
 import { Beer, Scan, ShieldQuestionMark, Target, X } from "lucide-react";
