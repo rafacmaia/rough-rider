@@ -1,6 +1,6 @@
 {
   "name": "rough-rider",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Companion app for Rough Rider (beer darts) tournaments",
   "author": "Zou Labs <rfpcmaia@gmail.com> (https://github.com/rafacmaia)",
