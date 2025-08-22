@@ -79,7 +79,7 @@ function Round({ round, roundNum, currentRound }: RoundProps) {
 
   return (
     <div
-      className={`flex w-screen items-center justify-center border-b-3 border-black px-20 py-10 ${roundNum === 1 && "border-t-3"} ${roundNum === currentRound ? "bg-slate-800 text-yellow-300" : "bg-background text-black"}`}
+      className={`flex w-screen items-center-safe justify-center-safe border-b-3 border-black px-20 py-10 ${roundNum === 1 && "border-t-3"} ${roundNum === currentRound ? "bg-slate-800 text-yellow-300" : "bg-background text-black"}`}
     >
       <h2 className={`w-1/12 font-header text-6xl`}>{roundNum}</h2>
       <div className="flex grow items-center justify-center gap-12 text-black">

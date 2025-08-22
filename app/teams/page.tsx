@@ -2,7 +2,8 @@
 import { JSX, useState, useEffect } from "react";
 import { ArrowBigRight, Flame, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { shuffleArray, addTeams } from "@fb/firestore";
+import { addTeams, clearTournament } from "@fb/firestore";
+import { shuffleArray } from "@/utils/utils";
 import PlayerGrid from "./_components/PlayerGrid";
 import players from "@fb/seed-data";
 
@@ -14,6 +15,7 @@ export default function TeamsPage() {
   const [selectedPlayer, setSelectedPlayer] = useState<string>("");
 
   useEffect(() => {
+    clearTournament();
     setShuffledPlayers(shuffleArray(players));
   }, []);
 
@@ -61,7 +63,7 @@ export default function TeamsPage() {
         {assignedPlayers.length === players.length && (
           <button
             onClick={handleStartTournament}
-            className="absolute inset-x-0 top-1/2 m-auto flex h-24 w-100 -translate-y-1/2 cursor-pointer items-center justify-center rounded-md border-6 bg-yellow-300 p-4 text-center font-header-alt text-4xl font-black text-black hover:bg-black hover:text-yellow-300"
+            className="absolute inset-x-0 top-1/2 m-auto flex h-24 w-100 -translate-y-1/2 cursor-pointer items-center justify-center rounded-md border-6 bg-accent p-4 text-center font-header-alt text-4xl font-black text-black hover:bg-black hover:text-accent"
           >
             Start Tournament
             <ArrowBigRight size={30} className="ml-2" strokeWidth={3} />

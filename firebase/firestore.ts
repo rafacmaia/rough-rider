@@ -4,46 +4,30 @@ import {
   setDoc,
   doc,
   getDocs,
-  getCountFromServer,
   query,
   where,
   getDoc,
   updateDoc,
   increment,
-  addDoc,
+  writeBatch,
 } from "firebase/firestore";
 import { db } from "./config";
-import players from "./seed-data";
-import { random } from "nanoid";
+import { shuffleArray } from "@/utils/utils";
 
-/* === Utility Functions === */
-export function shuffleArray(array: any[]) {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-}
+// export async function addPlayers(players: string[]) {
+//   for (const player of players) {
+//     try {
+//       await addDoc(collection(db, "players"), {
+//         name: player,
+//         score: 0,
+//       });
+//     } catch (e) {
+//       console.error("Error adding players to database: ", e);
+//     }
+//   }
+// }
 
-export async function addPlayers(players: string[]) {
-  for (const player of players) {
-    try {
-      await addDoc(collection(db, "players"), {
-        name: player,
-        score: 0,
-      });
-    } catch (e) {
-      console.error("Error adding players to database: ", e);
-    }
-  }
-}
-
-// await addPlayers(players);
-
-/* === DB Interactions === */
-
-/* == Adding == */
+/* === Add to Database === */
 export async function addTeams(teams: string[][]) {
   let teamCount = 1;
   for (const team of teams) {
@@ -69,64 +53,68 @@ export async function createTournament(type: string) {
     const shuffledTeams = shuffleArray(teams);
     const numOfRounds = Math.ceil(Math.log2(shuffledTeams.length));
 
-    let matchId = 1,
-      byeCount = 1;
-    let numOfAdvancingTeams = shuffledTeams.length;
-    for (let i = 0; i < numOfRounds; i++) {
-      const numOfMatches = Math.floor(numOfAdvancingTeams / 2);
-      const bye = numOfAdvancingTeams % 2;
-      numOfAdvancingTeams = Math.ceil(numOfAdvancingTeams / 2);
-      for (let j = 0; j < numOfMatches + bye; j++) {
-        const isBye = j === numOfMatches;
-        if (isBye) {
-          await setDoc(doc(db, "matches", String("b" + byeCount)), {
-            byeNum: byeCount++,
-            round: i + 1,
-            bye: true,
-            team1: shuffledTeams[0] ?? null,
-            team2: null,
-          });
-          if (shuffledTeams.length === 1) {
-            await updateDoc(doc(db, "teams", String(shuffledTeams[0].id)), {
-              status: "bye-advanced",
-            });
-          }
-        } else {
-          await setDoc(doc(db, "matches", String(matchId)), {
-            matchNum: matchId++,
-            round: i + 1,
-            bye: false,
-            team1: shuffledTeams.shift() ?? null,
-            team2: shuffledTeams.shift() ?? null,
-            status: "pending",
-          });
-        }
-      }
-    }
+    await addMatches(shuffledTeams, numOfRounds);
   } catch (e) {
     console.error("Error retrieving teams: ", e);
   }
 }
 
-/* === Get Functions === */
-export async function getActiveTournament() {
-  try {
-    const tournament = await getDocs(
-      query(collection(db, "tournaments"), where("status", "==", "active")),
-    );
-
-    if (tournament.empty) {
-      return null;
+async function addMatches(teams: Team[], rounds: number) {
+  let matchId = 1,
+    byeCount = 1;
+  let numOfAdvancingTeams = teams.length;
+  for (let i = 0; i < rounds; i++) {
+    const numOfMatches = Math.floor(numOfAdvancingTeams / 2);
+    const bye = numOfAdvancingTeams % 2;
+    numOfAdvancingTeams = Math.ceil(numOfAdvancingTeams / 2);
+    for (let j = 0; j < numOfMatches + bye; j++) {
+      const isBye = j === numOfMatches;
+      if (isBye) {
+        await setDoc(doc(db, "matches", String("b" + byeCount)), {
+          byeNum: byeCount++,
+          round: i + 1,
+          bye: true,
+          team1: teams[0] ?? null,
+          team2: null,
+        });
+        if (teams.length === 1) {
+          await updateDoc(doc(db, "teams", String(teams[0].id)), {
+            status: "bye-advanced",
+          });
+        }
+      } else {
+        await setDoc(doc(db, "matches", String(matchId)), {
+          matchNum: matchId++,
+          round: i + 1,
+          bye: false,
+          team1: teams.shift() ?? null,
+          team2: teams.shift() ?? null,
+          status: "pending",
+        });
+      }
     }
-    if (tournament.docs.length > 1) {
-      throw new Error("More than one active tournament");
-    }
-    return tournament.docs[0];
-  } catch (e) {
-    console.error("Error retrieving tournament: ", e);
-    return null;
   }
 }
+
+/* === Get Functions === */
+// export async function getActiveTournament() {
+//   try {
+//     const tournament = await getDocs(
+//       query(collection(db, "tournaments"), where("status", "==", "active")),
+//     );
+//
+//     if (tournament.empty) {
+//       return null;
+//     }
+//     if (tournament.docs.length > 1) {
+//       throw new Error("More than one active tournament");
+//     }
+//     return tournament.docs[0];
+//   } catch (e) {
+//     console.error("Error retrieving tournament: ", e);
+//     return null;
+//   }
+// }
 
 export async function getTeams() {
   try {
@@ -185,8 +173,7 @@ export async function updateMatch(id: number, scores: number[][]) {
 
     const match = await getDoc(matchRef);
     if (!match.exists()) {
-      throw new Error("Match does not exist");
-      return;
+      return new Error("Match does not exist");
     }
     const teamRef1 = doc(db, "teams", String(match.data().team1.id));
     const teamRef2 = doc(db, "teams", String(match.data().team2.id));
@@ -251,7 +238,7 @@ async function updateTournament(nextMatch: number) {
         const matchRef = doc(db, "matches", String(`b${bye.byeNum}`));
         if (!matchRef) {
           console.error("Match does not exist");
-          throw new Error("Match does not exist");
+          return new Error("Match does not exist");
         }
         await updateDoc(matchRef, {
           team1: byeTeam,
@@ -312,17 +299,42 @@ async function updatePlayerScore(player: string, score: number) {
   });
 }
 
-/* === Helper Function === */
-async function addTournament(type: string, numOfRounds: number, teams: any[]) {
+export async function clearTournament() {
   try {
-    const tournaments = await getCountFromServer(collection(db, "tournaments"));
-
-    await setDoc(doc(db, "tournaments", String(tournaments.data().count + 1)), {
-      rounds: numOfRounds,
-      teams: teams,
-      status: "active",
-    });
+    await deleteCollection("matches");
+    await deleteCollection("teams");
   } catch (e) {
-    console.error("Error adding tournament to database: ", e);
+    console.error("Error clearing tournament: ", e);
   }
 }
+
+async function deleteCollection(name: string) {
+    const snapshot = await getDocs(collection(db, name));
+
+    if (snapshot.empty) {
+      return;
+    }
+
+    const batch = writeBatch(db);
+    snapshot.docs.forEach((doc) => {
+      batch.delete(doc.ref);
+    });
+
+    await batch.commit();
+    console.log(`Deleted collection: ${name}`);
+  }
+
+/* === Helper Function === */
+// async function addTournament(type: string, numOfRounds: number, teams: any[]) {
+//   try {
+//     const tournaments = await getCountFromServer(collection(db, "tournaments"));
+//
+//     await setDoc(doc(db, "tournaments", String(tournaments.data().count + 1)), {
+//       rounds: numOfRounds,
+//       teams: teams,
+//       status: "active",
+//     });
+//   } catch (e) {
+//     console.error("Error adding tournament to database: ", e);
+//   }
+// }

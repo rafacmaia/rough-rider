@@ -10,5 +10,5 @@ export default [
   "Blackie",
   "Du Maurier",
   "Nora",
-  "Bambi",
+  "Rolo",
 ];

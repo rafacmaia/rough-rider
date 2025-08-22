@@ -1,6 +1,12 @@
 "use client";
 import { use, useEffect, useState } from "react";
-import { ArrowBigRight, X } from "lucide-react";
+import {
+  ArrowBigRight,
+  ArrowBigRightDash,
+  ArrowBigRightIcon,
+  Flame,
+  X,
+} from "lucide-react";
 import { DocumentData } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -25,6 +31,7 @@ export default function MatchPage({ params }: MatchPageProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [scoringTeam, setScoringTeam] = useState<Team | null>(null);
   const [matchOver, setMatchOver] = useState<boolean>(false);
+  const [isFinalRound, setIsFinalRound] = useState<boolean>(false);
   const [scores, setScores] = useState<number[][]>([
     [0, 0],
     [0, 0],
@@ -33,8 +40,7 @@ export default function MatchPage({ params }: MatchPageProps) {
     [false, false],
     [false, false],
   ]);
-  const resolvedParams = use(params);
-  const matchId = Number(resolvedParams.id);
+  const matchId = Number(use(params).id);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,12 +64,11 @@ export default function MatchPage({ params }: MatchPageProps) {
     scoresTemp[team - 1][player - 1] += 1;
     setScores(scoresTemp);
     setIsModalOpen(false);
-
     if (
       (crushedCans[0][0] && crushedCans[0][1]) ||
       (crushedCans[1][0] && crushedCans[1][1])
     ) {
-      endMatch();
+      setIsFinalRound(true);
     }
   };
 
@@ -112,7 +117,7 @@ export default function MatchPage({ params }: MatchPageProps) {
           {String("Match " + match.id)}
         </h1>
       </header>
-      <main className="flex w-screen grow items-center justify-center pb-6">
+      <main className="relative flex w-screen grow items-center justify-center pb-6">
         <section className="flex grow items-center justify-evenly px-0 py-6 text-center">
           <TeamDisplay
             team={match.team1}
@@ -138,6 +143,19 @@ export default function MatchPage({ params }: MatchPageProps) {
           handleScoring={updateScores}
         />
 
+        {isFinalRound && (
+          <button
+            className="absolute bottom-20 z-9999 flex cursor-pointer items-center justify-center rounded-xl border-5 bg-sky-300 px-8 py-3 text-center font-footer text-5xl font-black text-black drop-shadow-xl hover:text-red-600"
+            onClick={endMatch}
+          >
+            <span className={`mr-3 text-black`}>End Match</span>
+            <ArrowBigRight className="size-8" strokeWidth={3} />
+          </button>
+        )}
+        {/*    {*/}
+        {/*  endMatch();*/}
+        {/*}}*/}
+
         <EndMatchModal isOpen={matchOver} match={match} scores={scores} />
       </main>
     </div>
@@ -161,7 +179,7 @@ function TeamDisplay({
 }: TeamDisplayProps) {
   return (
     <div
-      className={`relative flex w-xs flex-col items-center justify-center gap-20 truncate overflow-hidden rounded-xl border-5 border-black bg-yellow-300/85 px-2 py-8 font-footer text-[2.7rem] font-bold text-nowrap`}
+      className={`relative flex w-xs flex-col items-center justify-center gap-20 truncate overflow-hidden rounded-xl border-5 border-black bg-yellow-300/85 px-2 py-8 font-footer text-[2.7rem] font-bold text-nowrap drop-shadow-lg`}
     >
       <div className="flex min-w-4/5 flex-col items-center justify-between px-6">
         {team.player1.name}

@@ -1,12 +1,19 @@
 # 🎯 Rough Rider: Tournament Tracker
 
-![Status](https://img.shields.io/badge/status-in--development-yellow) ![License](https://img.shields.io/badge/license-MIT-blue)
+![Status](https://img.shields.io/badge/status-in--development-yellow)
+![License](https://img.shields.io/badge/license-MIT-blue)
+![Version](https://img.shields.io/github/v/tag/rafacmaia/rough-rider?label=version&sort=semver)
+![Last commit](https://img.shields.io/github/last-commit/rafacmaia/rough-rider)
+<br/>
+![Next.js](https://img.shields.io/badge/Next.js-000000?logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?logo=firebase&logoColor=black)
 
-The web app no one's been waiting for is here, no more scrambling for paper
-and pen and wasting precious cabin time with convoluted tournament systems
-when you just want to get a bit Rough with your fellow Riders.
-The **Rough
-Rider App** takes care of it all so you can just relax and throw
+The web app no one's been waiting for is here, no more scrambling for pen and
+paper and wasting precious cabin time with convoluted tournament systems when
+you just want to get a bit Rough with your fellow Riders.
+The **Rough Rider App** takes care of it all so you can just relax and throw
 some darts at beer cans the way you were meant to.
 
 The app manages team selection, tournament setup, score tracking, and player &
@@ -25,6 +32,17 @@ opposing
 player's canned drink of choice. The team that pierces their opponent's two
 cans
 first takes the win.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Next.js**
+- **React**
+- **TypeScript**
+- **Tailwind CSS**
+- **Firebase (Auth, Firestore)**
+- **Vercel (when deployed)**
 
 ---
 
@@ -67,13 +85,13 @@ first takes the win.
 
 - 📋 En Français!
 - 📋 View past tournaments
-- 📋 Optional match time-tracking
+- 📋 Optional time tracking for matches
 - 📋 Notify the "next-up" team so they can get ready
 - 📋 Upload team & tournament photos
 
 ---
 
-## ✨ Demo
+## ✨ Preview
 
 <details>
 <summary><b>Click to view screenshots of latest version</b></summary>
@@ -96,16 +114,6 @@ first takes the win.
 <img src="docs/screenshots/match-3.jpeg" width="420" alt="Match Complete">
 
 </details>
-
----
-
-## 🛠️ Tech Stack
-
-- React
-- Next.js
-- Tailwind CSS
-- Firebase (Auth, Firestore)
-- Vercel (deployment)
 
 ---
 
@@ -137,7 +145,7 @@ hesitate to reach out!
 ## 📜 License
 
 MIT License – feel free to use, share, and remix it at will. If you do, a link
-back here would make my day!
+back here would be super nice!
 
 ---
 
