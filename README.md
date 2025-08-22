@@ -162,3 +162,8 @@ back here would be super nice!
   from [SVG Repo](https://www.svgrepo.com/)
   ([CC Attribution License](https://creativecommons.org/licenses/by/4.0/))
 
+-cat-icon.svg - https://www.svgrepo.com/svg/430037/cat
+
+- cat-icon2  https://www.svgrepo.com/svg/311786/black-cat
+- cat-icon3 https://www.svgrepo.com/svg/154275/wild-cat?edit=true
+

@@ -1,6 +1,7 @@
 import { Cabin, Cabin_Sketch, Calistoga, Gaegu } from "next/font/google";
 import type { Metadata } from "next";
 import "./globals.css";
+import AboutModal from "@/components/AboutModal";
 
 const cabin = Cabin({
   subsets: ["latin"],
@@ -45,6 +46,7 @@ export default function RootLayout({
         className={`${cabin.variable} ${cabin_sketch.variable} ${calistoga.variable} ${gaegu.variable} flex h-full min-h-dvh w-screen min-w-80 flex-col items-center bg-background text-foreground`}
       >
         {children}
+        <AboutModal />
       </body>
     </html>
   );

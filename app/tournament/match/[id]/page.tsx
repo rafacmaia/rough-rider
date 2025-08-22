@@ -145,7 +145,7 @@ export default function MatchPage({ params }: MatchPageProps) {
 
         {isFinalRound && (
           <button
-            className="absolute bottom-20 z-9999 flex cursor-pointer items-center justify-center rounded-xl border-5 bg-sky-300 px-8 py-3 text-center font-footer text-5xl font-black text-black drop-shadow-xl hover:text-red-600"
+            className="absolute bottom-20 z-10 flex cursor-pointer items-center justify-center rounded-xl border-5 bg-sky-300 px-8 py-3 text-center font-footer text-5xl font-black text-black opacity-90 drop-shadow-xl hover:text-red-600"
             onClick={endMatch}
           >
             <span className={`mr-3 text-black`}>End Match</span>
@@ -250,7 +250,7 @@ function ScoringModal({ isOpen, scoringTeam, handleScoring }: any) {
     return null;
   }
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-[2px]">
+    <div className="fixed inset-0 z-20 flex items-center justify-center bg-black/50 backdrop-blur-[2px]">
       <div className="flex flex-col items-center justify-center gap-12 rounded-lg border-6 border-black bg-background p-12">
         <h1 className="font-header text-6xl font-black tracking-wide">
           Who scored?
@@ -299,7 +299,7 @@ function EndMatchModal({ isOpen, match, scores }: EndMatchModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-[2px]">
+    <div className="fixed inset-0 z-20 flex items-center justify-center bg-black/50 backdrop-blur-[2px]">
       <div className="flex flex-col items-center justify-center rounded-lg border-6 border-black bg-background p-12">
         <h1 className="mb-16 font-header text-6xl font-black tracking-wide underline decoration-red-600 decoration-wavy decoration-4 underline-offset-15">
           Final Score
