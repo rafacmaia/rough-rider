@@ -89,7 +89,7 @@ export default function TeamsPage() {
         {/*<Flame className="text-red-600" size={40} />*/}
       </header>
 
-      <div className="relative mt-12 mb-4 flex grow items-center">
+      <div className="relative mt-16 mb-6 flex grow items-center">
         <PlayerGrid
           players={players.map((player) => player.name)}
           handlePlayerSelection={handlePlayerSelection}
@@ -134,18 +134,18 @@ function TeamDisplay({
     teamList.push(
       <li
         key={teamList.length}
-        className={`flex min-w-100 flex-1 items-center rounded-md border-4 p-3 font-bold ${teams.length === numOfTeams ? "border-yellow-300 bg-slate-800 text-yellow-300" : "border-black bg-yellow-300 text-black"}`}
+        className={`flex w-full items-center rounded-md border-4 p-3 font-bold ${teams.length === numOfTeams ? "border-yellow-300 bg-slate-800 text-yellow-300" : "border-black bg-yellow-300 text-black"}`}
       >
         <Flame
           className={`mx-2 shrink-0 text-red-alt`}
           strokeWidth={3}
           size={25}
         />
-        <h3 className="inline-block font-header-alt text-xl/10 tracking-wide text-nowrap">
+        <h3 className="inline-block font-header text-xl/10 tracking-wide text-nowrap">
           Team {i + 1} :
         </h3>{" "}
-        <span className="ml-1 flex w-full items-center justify-between font-footer text-2xl">
-          {team.join(", ")}
+        <span className="ml-2 flex w-full items-center justify-between font-footer text-[1.6rem]">
+          {team.join(" + ")}
           <Flame
             className={`mx-2 shrink-0 text-red-alt`}
             strokeWidth={3}
@@ -160,23 +160,25 @@ function TeamDisplay({
     teamList.push(
       <li
         key={teamList.length}
-        className="flex min-w-100 flex-1 items-center rounded-md border-4 border-black bg-yellow-300/85 p-3 pl-8 font-bold text-black/85"
+        className="flex w-full items-center rounded-md border-4 border-red-600/75 bg-yellow-300 p-3 pl-8 font-bold text-black"
       >
-        <h3 className="inline-block font-header-alt text-xl/10 tracking-wide">
+        <h3 className="inline-block font-header text-xl/10 tracking-wide">
           Team {teamList.length + 1} :
         </h3>{" "}
-        <span className="ml-1 font-footer text-2xl">{selectedPlayer},</span>
+        <span className="ml-2 font-footer text-[1.6rem]">
+          {selectedPlayer} +
+        </span>
       </li>,
     );
   }
 
-  while (teamList.length < numOfTeams) {
+  for (let i = 0; teamList.length < numOfTeams; i++) {
     teamList.push(
       <li
         key={teamList.length}
-        className="flex w-100 flex-1 items-center rounded-md border-4 border-black bg-yellow-300/70 p-3 pl-8 text-black/80"
+        className={`flex w-full items-center rounded-md border-4 border-black p-3 pl-8 ${i === 0 && selectedPlayer === "" ? "border-red-600/75 bg-yellow-300 font-bold text-black" : "bg-yellow-300/60 text-black/80"}`}
       >
-        <h3 className="inline-block font-header-alt text-xl/10 tracking-wide">
+        <h3 className="inline-block font-header text-xl/10 tracking-wide">
           Team {teamList.length + 1} :
         </h3>{" "}
       </li>,
@@ -184,9 +186,9 @@ function TeamDisplay({
   }
 
   return (
-    <section className="flex w-screen border-t-4 border-black bg-slate-800 font-body">
+    <section className="flex w-screen border-t-4 border-black bg-slate-800">
       <ol
-        className={`mx-auto flex min-w-3xl flex-wrap place-content-center justify-evenly gap-x-3 gap-y-2 p-4 text-xl text-slate-950`}
+        className={`mx-auto grid w-full grid-cols-1 place-content-center place-items-stretch gap-x-4 gap-y-2 p-6 text-xl text-slate-950 sm:grid-cols-2 xl:grid-cols-3`}
       >
         {teamList}
       </ol>

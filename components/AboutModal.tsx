@@ -21,7 +21,7 @@ export default function AboutModal() {
           className="absolute inset-0 z-60 backdrop-blur-[2px]"
         >
           <section
-            className={`absolute right-13 bottom-13 z-99 flex flex-col items-center-safe rounded-full rounded-br-none border border-accent bg-slate-950 px-8 py-6 font-footer text-sm font-light tracking-wider text-slate-100 opacity-95 drop-shadow-2xl`}
+            className={`absolute right-13 bottom-13 z-99 flex flex-col items-center-safe rounded-full rounded-br-none border-2 border-accent bg-slate-950 px-8 py-6 font-footer text-sm font-light tracking-wider text-slate-100 opacity-95 drop-shadow-2xl`}
           >
             <button
               onClick={() => {

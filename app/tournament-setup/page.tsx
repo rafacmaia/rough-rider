@@ -17,8 +17,10 @@ export default function TournamentSetupPage() {
 
   return (
     <main className="flex h-dvh flex-col items-center gap-20">
-      <header className={`flex w-screen items-center justify-center pt-20`}>
-        <h1 className="mx-4 font-header text-6xl font-extrabold underline decoration-red-600 decoration-wavy decoration-4 underline-offset-20">
+      <header
+        className={`flex w-screen items-center justify-center pt-20 text-center`}
+      >
+        <h1 className="mx-4 font-header text-6xl leading-relaxed font-extrabold underline decoration-red-600 decoration-wavy decoration-4 underline-offset-20">
           Tournament Setup
         </h1>
       </header>
