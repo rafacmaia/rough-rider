@@ -14,6 +14,7 @@ import { getMatch, updateMatch } from "@fb/firestore";
 import BeerCan from "@/public/beer-can-icon.svg";
 import BeerCanCrushed from "@/public/beer-can-crushed-icon.svg";
 import Dart from "@/public/dart-icon.svg";
+import LoadingPage from "@/components/LoadingPage";
 
 interface MatchPageProps {
   params: Promise<{ id: string }>;
@@ -101,13 +102,7 @@ export default function MatchPage({ params }: MatchPageProps) {
   };
 
   if (loading) {
-    return (
-      <section className="flex flex-col items-center justify-center gap-12">
-        <div className="text-center font-header text-xl font-extrabold tracking-wide">
-          <h3 className="border-b-2 border-red-600 p-1">LOADING...</h3>
-        </div>
-      </section>
-    );
+    return <LoadingPage />;
   }
 
   return (

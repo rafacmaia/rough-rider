@@ -1,51 +1,14 @@
-import { getMatches, getTeams } from "@/firebase/firestore";
-import { useState, useEffect } from "react";
 import { DocumentData } from "@firebase/firestore";
-import { Beer, Scan, ShieldQuestionMark, Target, X } from "lucide-react";
+import { Beer, X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import LoadingPage from "@/components/LoadingPage";
 
-export default function Bracket() {
-  const [rounds, setRounds] = useState<DocumentData[][]>([]);
-  const [matches, setMatches] = useState<DocumentData[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+interface BracketProps {
+  matches: DocumentData[];
+  rounds: DocumentData[][];
+}
 
-  useEffect(() => {
-    const fetchTournamentData = async () => {
-      try {
-        setLoading(true);
-        const matches = await getMatches();
-        const teams = await getTeams();
-        setMatches(() => matches);
-        setRounds(() => {
-          const numOfRounds = Math.ceil(Math.log2(teams.length));
-          const rounds: DocumentData[][] = [];
-          for (let i = 0; i < numOfRounds; i++) {
-            rounds.push([]);
-          }
-          matches.map((match) => {
-            rounds[match.round - 1].push(match);
-          });
-          return rounds;
-        });
-      } catch (e) {
-        console.error("Error retrieving data: ", e);
-      } finally {
-        setLoading(false);
-      }
-    };
-    void fetchTournamentData();
-  }, []);
-
-  if (loading) {
-    return (
-      <section className="flex flex-col items-center justify-center gap-12">
-        <div className="text-center font-header text-xl font-extrabold tracking-wide">
-          <h3 className="border-b-2 border-red-600 p-1">LOADING...</h3>
-        </div>
-      </section>
-    );
-  }
-
+export default function Bracket({ matches, rounds }: BracketProps) {
   const nextMatch = matches.find((match) => match.status === "pending");
   const currentRound = nextMatch ? nextMatch.round : -1;
   const roundElements = rounds.map((round, i) => {

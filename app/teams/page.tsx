@@ -11,6 +11,7 @@ import {
 import { shuffleArray } from "@/utils";
 import PlayerGrid from "./_components/PlayerGrid";
 import { Player } from "@/types";
+import LoadingPage from "@/components/LoadingPage";
 
 export default function TeamsPage() {
   const router = useRouter();
@@ -70,13 +71,7 @@ export default function TeamsPage() {
   }
 
   if (loading) {
-    return (
-      <main className="flex h-dvh flex-col items-center justify-center gap-8">
-        <h3 className="p-1 text-center font-header text-2xl font-extrabold tracking-widest uppercase underline decoration-red-600 decoration-wavy decoration-2 underline-offset-5">
-          Loading...
-        </h3>
-      </main>
-    );
+    return <LoadingPage />;
   }
 
   return (

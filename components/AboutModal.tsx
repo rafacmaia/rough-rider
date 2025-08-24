@@ -1,7 +1,7 @@
 "use client";
 import { Cat } from "lucide-react";
 import { useState } from "react";
-import CatIcon from "@/public/cat-icon4.svg";
+import CatIcon from "@/public/cat-icon.svg";
 import Image from "next/image";
 
 export default function AboutModal() {
