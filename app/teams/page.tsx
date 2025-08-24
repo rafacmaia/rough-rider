@@ -1,23 +1,47 @@
 "use client";
 import { JSX, useState, useEffect } from "react";
-import { ArrowBigRight, Flame, Star } from "lucide-react";
+import { ArrowBigRight, Flame } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { addTeams, clearTournament } from "@fb/firestore";
-import { shuffleArray } from "@/utils/utils";
+import {
+  getPlayers,
+  addTeams,
+  resetTournament,
+  addPlayer,
+} from "@fb/firestore";
+import { shuffleArray } from "@/utils";
 import PlayerGrid from "./_components/PlayerGrid";
-import players from "@fb/seed-data";
+import { Player } from "@/types";
 
 export default function TeamsPage() {
   const router = useRouter();
-  const [shuffledPlayers, setShuffledPlayers] = useState<string[]>(players);
+  const [players, setPlayers] = useState<Player[]>([]);
+  const [newPlayers, setNewPlayers] = useState<string[]>([]);
   const [assignedPlayers, setAssignedPlayers] = useState<string[]>([]);
   const [teams, setTeams] = useState<string[][]>([]);
   const [selectedPlayer, setSelectedPlayer] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    clearTournament();
-    setShuffledPlayers(shuffleArray(players));
+    const initializeTournament = async () => {
+      try {
+        setLoading(true);
+        await resetTournament();
+        const players = await getPlayers();
+        setPlayers(shuffleArray(players));
+      } catch (e) {
+        console.error("Error retrieving data: ", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    void initializeTournament();
   }, []);
+
+  const handleNewPlayer = (name: string) => {
+    setNewPlayers([...newPlayers, name]);
+    setPlayers([...players, { name: name, score: 0 }]);
+  };
 
   const handlePlayerSelection = (player: string) => {
     if (assignedPlayers.includes(player)) {
@@ -35,6 +59,9 @@ export default function TeamsPage() {
 
   async function handleStartTournament() {
     try {
+      for (const player of newPlayers) {
+        await addPlayer(player);
+      }
       await addTeams(teams);
       router.push("/tournament-setup");
     } catch (e) {
@@ -42,22 +69,31 @@ export default function TeamsPage() {
     }
   }
 
+  if (loading) {
+    return (
+      <main className="flex h-dvh flex-col items-center justify-center gap-8">
+        <h3 className="p-1 text-center font-header text-2xl font-extrabold tracking-widest uppercase underline decoration-red-600 decoration-wavy decoration-2 underline-offset-5">
+          Loading...
+        </h3>
+      </main>
+    );
+  }
+
   return (
-    <main className="flex h-dvh flex-col items-center justify-center font-light">
+    <main className="flex flex-1 flex-col items-center justify-center font-light">
       <header
-        className={`flex h-1/5 w-screen items-center justify-center pt-2 underline decoration-red-600 decoration-wavy decoration-4 underline-offset-20 ${assignedPlayers.length === players.length && "opacity-40"}`}
+        className={`w-screen flex-none items-center justify-center pt-18 text-center underline decoration-red-600 decoration-wavy decoration-4 underline-offset-18 ${assignedPlayers.length === players.length && "opacity-40"}`}
       >
         {/*<Flame className="text-red-600" size={40} />*/}
-        <h1 className="mx-6 font-header text-6xl font-extrabold">
-          Team Selection
-        </h1>
+        <h1 className="font-header text-6xl font-extrabold">Team Selection</h1>
         {/*<Flame className="text-red-600" size={40} />*/}
       </header>
 
-      <section className="relative my-auto grid h-fit grid-cols-4 content-center gap-2 p-2 font-footer">
+      <div className="relative mt-12 mb-4 flex grow items-center">
         <PlayerGrid
-          players={shuffledPlayers}
-          onPlayerSelection={handlePlayerSelection}
+          players={players.map((player) => player.name)}
+          handlePlayerSelection={handlePlayerSelection}
+          handleNewPlayer={handleNewPlayer}
           assignedPlayers={assignedPlayers}
         />
         {assignedPlayers.length === players.length && (
@@ -69,7 +105,7 @@ export default function TeamsPage() {
             <ArrowBigRight size={30} className="ml-2" strokeWidth={3} />
           </button>
         )}
-      </section>
+      </div>
 
       <TeamDisplay
         numOfPlayers={players.length}
@@ -98,7 +134,7 @@ function TeamDisplay({
     teamList.push(
       <li
         key={teamList.length}
-        className={`flex min-w-120 items-center rounded-md border-4 p-3 font-bold ${teams.length === numOfTeams ? "border-yellow-300 bg-slate-800 text-yellow-300" : "border-black bg-yellow-300 text-black"}`}
+        className={`flex min-w-100 flex-1 items-center rounded-md border-4 p-3 font-bold ${teams.length === numOfTeams ? "border-yellow-300 bg-slate-800 text-yellow-300" : "border-black bg-yellow-300 text-black"}`}
       >
         <Flame
           className={`mx-2 shrink-0 text-red-alt`}
@@ -124,7 +160,7 @@ function TeamDisplay({
     teamList.push(
       <li
         key={teamList.length}
-        className="flex min-w-120 items-center rounded-md border-4 border-black bg-yellow-300/85 p-3 pl-8 font-bold text-black/85"
+        className="flex min-w-100 flex-1 items-center rounded-md border-4 border-black bg-yellow-300/85 p-3 pl-8 font-bold text-black/85"
       >
         <h3 className="inline-block font-header-alt text-xl/10 tracking-wide">
           Team {teamList.length + 1} :
@@ -138,7 +174,7 @@ function TeamDisplay({
     teamList.push(
       <li
         key={teamList.length}
-        className="flex w-120 items-center rounded-md border-4 border-black bg-yellow-300/70 p-3 pl-8 text-black/80"
+        className="flex w-100 flex-1 items-center rounded-md border-4 border-black bg-yellow-300/70 p-3 pl-8 text-black/80"
       >
         <h3 className="inline-block font-header-alt text-xl/10 tracking-wide">
           Team {teamList.length + 1} :
@@ -148,9 +184,9 @@ function TeamDisplay({
   }
 
   return (
-    <section className="mt-auto flex w-screen border-t-5 border-black bg-slate-800 font-body">
+    <section className="flex w-screen border-t-4 border-black bg-slate-800 font-body">
       <ol
-        className={`mx-auto grid min-w-3xl grid-cols-2 place-content-center gap-x-5 gap-y-2 p-7 text-xl text-slate-950`}
+        className={`mx-auto flex min-w-3xl flex-wrap place-content-center justify-evenly gap-x-3 gap-y-2 p-4 text-xl text-slate-950`}
       >
         {teamList}
       </ol>

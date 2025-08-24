@@ -43,18 +43,18 @@ export default function MatchPage({ params }: MatchPageProps) {
   const matchId = Number(use(params).id);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchMatchData = async () => {
       try {
         setLoading(true);
         const match = await getMatch(matchId);
-        setMatch(() => {
-          return match;
-        });
+        setMatch(() => match);
       } catch (e) {
         console.error("Error retrieving data: ", e);
+      } finally {
+        setLoading(false);
       }
     };
-    fetchData().then(() => setLoading(false));
+    void fetchMatchData();
   }, [matchId]);
 
   const updateScores = (team: number, player: number) => {
@@ -145,7 +145,7 @@ export default function MatchPage({ params }: MatchPageProps) {
 
         {isFinalRound && (
           <button
-            className="absolute bottom-20 z-10 flex cursor-pointer items-center justify-center rounded-xl border-5 bg-sky-300 px-8 py-3 text-center font-footer text-5xl font-black text-black opacity-90 drop-shadow-xl hover:text-red-600"
+            className="absolute bottom-10 z-10 flex cursor-pointer items-center justify-center rounded-xl border-5 bg-blue-300 px-8 py-3 text-center font-footer text-5xl font-black text-black opacity-90 drop-shadow-xl hover:text-red-600"
             onClick={endMatch}
           >
             <span className={`mr-3 text-black`}>End Match</span>

@@ -1,7 +1,7 @@
 "use client";
 import { Cat } from "lucide-react";
 import { useState } from "react";
-import CatIcon from "@/public/cat-icon3.svg";
+import CatIcon from "@/public/cat-icon4.svg";
 import Image from "next/image";
 
 export default function AboutModal() {
@@ -9,20 +9,19 @@ export default function AboutModal() {
 
   return (
     <>
-      <button onClick={() => setIsOpen(true)}>
-        <Image
-          className={`absolute right-4 bottom-4 z-5 size-9 cursor-pointer`}
-          src={CatIcon}
-          alt={`Cat icon`}
-        />
+      <button
+        className="absolute right-4 bottom-4 z-70 cursor-pointer"
+        onClick={() => setIsOpen(true)}
+      >
+        <Image className={`block size-10`} src={CatIcon} alt={`Cat icon`} />
       </button>
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
-          className="fixed inset-0 z-60 backdrop-blur-[2px]"
+          className="absolute inset-0 z-60 backdrop-blur-[2px]"
         >
           <section
-            className={`absolute right-13 bottom-14 z-99 flex flex-col items-center-safe rounded-full rounded-br-none border border-slate-700 bg-slate-950 px-8 py-6 font-footer text-sm font-light tracking-wider text-slate-100 opacity-95 drop-shadow-2xl`}
+            className={`absolute right-13 bottom-13 z-99 flex flex-col items-center-safe rounded-full rounded-br-none border border-accent bg-slate-950 px-8 py-6 font-footer text-sm font-light tracking-wider text-slate-100 opacity-95 drop-shadow-2xl`}
           >
             <button
               onClick={() => {
@@ -43,7 +42,7 @@ export default function AboutModal() {
                 Zou Labs 🐈‍⬛
               </a>
             </div>
-            &copy; {new Date().getFullYear()} Licensed under MIT.
+            &copy; {new Date().getFullYear()} Licensed under MIT
           </section>
         </div>
       )}

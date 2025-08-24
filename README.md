@@ -37,12 +37,12 @@ first takes the win.
 
 ## 🛠️ Tech Stack
 
-- **Next.js**
-- **React**
-- **TypeScript**
-- **Tailwind CSS**
-- **Firebase (Auth, Firestore)**
-- **Vercel (when deployed)**
+- **[Next.js](https://nextjs.org/)**
+- **[React](https://react.dev/)**
+- **[TypeScript](https://www.typescriptlang.org/)**
+- **[Tailwind CSS](https://tailwindcss.com/)**
+- **[Firebase](https://firebase.google.com/)** (Auth, Firestore Database)
+- **[Vercel](https://vercel.com/)** (when deployed)
 
 ---
 
@@ -163,7 +163,4 @@ back here would be super nice!
   ([CC Attribution License](https://creativecommons.org/licenses/by/4.0/))
 
 -cat-icon.svg - https://www.svgrepo.com/svg/430037/cat
-
-- cat-icon2  https://www.svgrepo.com/svg/311786/black-cat
-- cat-icon3 https://www.svgrepo.com/svg/154275/wild-cat?edit=true
 

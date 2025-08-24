@@ -10,7 +10,7 @@ export default function Bracket() {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchTournamentData = async () => {
       try {
         setLoading(true);
         const matches = await getMatches();
@@ -33,7 +33,7 @@ export default function Bracket() {
         setLoading(false);
       }
     };
-    fetchData();
+    void fetchTournamentData();
   }, []);
 
   if (loading) {

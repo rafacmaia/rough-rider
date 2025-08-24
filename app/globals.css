@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 * {
-    /*outline: 2px red solid;*/
+    /*outline: 1px red solid;*/
 }
 
 :root {
@@ -14,8 +14,10 @@
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --color-accent: var(--color-yellow-300);
+    --color-tertiary: var(--color-blue-300);
     --color-red: var(--color-red-600);
     --color-red-alt: #ff4e30;
+
 
     --font-header: var(--font-calistoga), sans-serif;
     --font-header-alt: var(--font-cabin-sketch), sans-serif;

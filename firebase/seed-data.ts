@@ -1,4 +1,4 @@
-export default [
+export const CORE_PLAYERS: string[] = [
   "Zouzou",
   "Nick",
   "Howie",
@@ -11,4 +11,12 @@ export default [
   "Du Maurier",
   "Nora",
   "Rolo",
+  // "Test13",
+  // "Test14",
+  // "Test15",
+  // "Test16",
+  // "Test17",
+  // "Test18",
+  // "Test19",
+  // "Test20",
 ];

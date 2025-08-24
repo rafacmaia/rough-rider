@@ -12,20 +12,32 @@ import {
   writeBatch,
 } from "firebase/firestore";
 import { db } from "./config";
-import { shuffleArray } from "@/utils/utils";
+import { shuffleArray } from "@/utils";
+import { Player, Team } from "@/types"
+import { CORE_PLAYERS } from "./seed-data";
 
-// export async function addPlayers(players: string[]) {
-//   for (const player of players) {
-//     try {
-//       await addDoc(collection(db, "players"), {
-//         name: player,
-//         score: 0,
-//       });
-//     } catch (e) {
-//       console.error("Error adding players to database: ", e);
-//     }
-//   }
-// }
+async function addPlayers(players: string[]) {
+    try {
+      const batch = writeBatch(db);
+      players.forEach(player => {
+        const playerRef = doc(db, "players", player);
+      batch.set(playerRef, { name: player, score: 0 });
+      })
+
+      await batch.commit();
+      console.log(`Successfully added ${players.length} core players  .`);
+    } catch (e) {
+      console.error("Error adding players to database: ", e);
+      throw e;
+    }
+}
+
+export async function addPlayer(name: string) {
+    return await setDoc(doc(db, "players", name), {
+        name: name,
+        score: 0,
+    });
+}
 
 /* === Add to Database === */
 export async function addTeams(teams: string[][]) {
@@ -116,12 +128,20 @@ async function addMatches(teams: Team[], rounds: number) {
 //   }
 // }
 
+export async function getPlayers() {
+  try {
+    const players = await getDocs(collection(db, "players"));
+    return players.docs.map((doc) => doc.data() as Player);
+  } catch (e) {
+    console.error("Error retrieving players: ", e);
+    return [];
+  }
+}
+
 export async function getTeams() {
   try {
     const teams = await getDocs(collection(db, "teams"));
-    return teams.docs.map((doc) => {
-      return doc.data() as Team;
-    });
+    return teams.docs.map((doc) => doc.data() as Team);
   } catch (e) {
     console.error("Error retrieving teams: ", e);
     return [];
@@ -201,16 +221,6 @@ export async function updateMatch(id: number, scores: number[][]) {
   }
 }
 
-interface Team {
-  id: number;
-  player1: { name: string; score: number };
-  player2: { name: string; score: number };
-  wins: number;
-  losses: number;
-  plays: number;
-  status: string;
-}
-
 async function updateTournament(nextMatch: number) {
   console.log("Started updating tournament");
   try {
@@ -285,7 +295,7 @@ async function updateTournament(nextMatch: number) {
 }
 
 async function updatePlayerScore(player: string, score: number) {
-  const q = query(collection(db, "players"), where("player", "==", player));
+  const q = query(collection(db, "players"), where("name", "==", player));
   const snapshot = await getDocs(q);
 
   if (snapshot.empty) {
@@ -299,10 +309,12 @@ async function updatePlayerScore(player: string, score: number) {
   });
 }
 
-export async function clearTournament() {
+export async function resetTournament() {
   try {
     await deleteCollection("matches");
     await deleteCollection("teams");
+    await deleteCollection("players");
+    await addPlayers(CORE_PLAYERS);
   } catch (e) {
     console.error("Error clearing tournament: ", e);
   }

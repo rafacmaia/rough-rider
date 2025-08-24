@@ -43,7 +43,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body
-        className={`${cabin.variable} ${cabin_sketch.variable} ${calistoga.variable} ${gaegu.variable} flex h-full min-h-dvh w-screen min-w-80 flex-col items-center bg-background text-foreground`}
+        className={`${cabin.variable} ${cabin_sketch.variable} ${calistoga.variable} ${gaegu.variable} relative flex min-h-dvh w-screen min-w-80 flex-col overflow-x-hidden bg-background text-foreground`}
       >
         {children}
         <AboutModal />
