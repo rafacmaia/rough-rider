@@ -25,7 +25,7 @@ async function addPlayers(players: string[]) {
       })
 
       await batch.commit();
-      console.log(`Successfully added ${players.length} core players  .`);
+      console.log(`Successfully added ${players.length} core players`);
     } catch (e) {
       console.error("Error adding players to database: ", e);
       throw e;

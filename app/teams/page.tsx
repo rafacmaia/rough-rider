@@ -75,9 +75,9 @@ export default function TeamsPage() {
   }
 
   return (
-    <main className="flex flex-1 flex-col items-center justify-center font-light">
+    <main className="flex min-h-0 min-h-screen flex-col items-center justify-start overflow-hidden font-light">
       <header
-        className={`w-screen flex-none items-center justify-center pt-18 text-center underline decoration-red-600 decoration-wavy decoration-4 underline-offset-18 ${assignedPlayers.length === players.length && "opacity-40"}`}
+        className={`w-screen flex-none items-center justify-center pt-18 text-center underline decoration-red-600 decoration-wavy decoration-4 underline-offset-18 ${assignedPlayers.length === players.length && "opacity-70"}`}
       >
         {/*<Flame className="text-red-600" size={40} />*/}
         <h1 className="font-header text-6xl font-extrabold">Team Selection</h1>
@@ -90,14 +90,19 @@ export default function TeamsPage() {
           handlePlayerSelection={handlePlayerSelection}
           handleNewPlayer={handleNewPlayer}
           assignedPlayers={assignedPlayers}
+          disable={assignedPlayers.length === players.length}
         />
         {assignedPlayers.length === players.length && (
           <button
             onClick={handleStartTournament}
-            className="absolute inset-x-0 top-1/2 m-auto flex h-24 w-100 -translate-y-1/2 cursor-pointer items-center justify-center rounded-md border-6 bg-accent p-4 text-center font-header-alt text-4xl font-black text-black hover:bg-black hover:text-accent"
+            className="absolute top-1/2 left-1/2 z-10 m-auto flex -translate-1/2 cursor-pointer items-center justify-center rounded-lg border-6 bg-accent p-6 text-center font-header text-3xl font-black text-nowrap text-slate-900 hover:bg-slate-900 hover:text-accent"
           >
             Start Tournament
-            <ArrowBigRight size={30} className="ml-2" strokeWidth={3} />
+            <ArrowBigRight
+              size={28}
+              className="ml-3 flex-none"
+              strokeWidth={3}
+            />
           </button>
         )}
       </div>
@@ -171,7 +176,7 @@ function TeamDisplay({
     teamList.push(
       <li
         key={teamList.length}
-        className={`flex w-full items-center rounded-md border-4 border-black p-3 pl-8 ${i === 0 && selectedPlayer === "" ? "border-red-600/75 bg-yellow-300 font-bold text-black" : "bg-yellow-300/60 text-black/80"}`}
+        className={`flex w-full items-center rounded-md border-4 border-black p-3 pl-8 ${i === 0 && selectedPlayer === "" ? "border-red-500/75 bg-yellow-300 font-bold text-black" : "bg-yellow-300/60 font-light text-black/80"}`}
       >
         <h3 className="inline-block font-header text-xl/10 tracking-wide">
           Team {teamList.length + 1} :

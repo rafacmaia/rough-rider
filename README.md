@@ -151,16 +151,28 @@ back here would be super nice!
 
 ## 🎨 Attributions
 
-- “Beer Can” icon used on the match page
-  by [Caroline Mackay](https://carolinemackay.com/) from the [Noun
+- “Beer Can” icon by [Caroline Mackay](https://carolinemackay.com/) from
+  the [Noun
   Project](https://thenounproject.com/browse/icons/term/beer-can/) (CC BY 3.0).
-- "Beer Can" (crushed) icon used on the match page
-  by [Mike O.](https://redtablepress.com/) from the [Noun
+- "Beer Can" (crushed) icon by [Mike O.](https://redtablepress.com/) from
+  the [Noun
   Project](https://thenounproject.com/browse/icons/term/beer-can/) (CC BY 3.0).
-- "Dart SVG Vector" icon used on the match page
+- "Dart SVG Vector" icon in the match page
   by [Game Icons.net](https://game-icons.net/?ref=svgrepo.com)
   from [SVG Repo](https://www.svgrepo.com/)
   ([CC Attribution License](https://creativecommons.org/licenses/by/4.0/))
 
--cat-icon.svg - https://www.svgrepo.com/svg/430037/cat
+- cat-icon.svg - "Cat SVG Vector" icon by Animals Material Icons
+  from [SVG Repo](https://www.svgrepo.com/svg/430037/cat) ([CC Attribution License](https://creativecommons.org/licenses/by/4.0/))
+- cat-icon2.svg - "Curious
+  Cat" icon by Lauren
+  Manninen from
+  the [Noun Project](https://thenounproject.com/icon/curious-cat-1072213/) (CC
+  BY 3.0).
+- cat-icon3.svg - "Cat" icon by sandra from
+  the [Noun Project](https://thenounproject.com/icon/cat-1343949/) (CC BY 3.0).
+- cat-icon4.svg - "Cat" icon by Hazann from
+  the [Noun Project](https://thenounproject.com/icon/cat-7880076/) (CC BY 3.0).
+- cat-icon5.svg - "f7:cat" icon from Iconify (MIT license, no attribution
+  required)
 

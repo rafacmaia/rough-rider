@@ -12,3 +12,15 @@ export interface Team {
   plays: number;
   status: string;
 }
+
+export interface ValidationSuccess {
+  isValid: true;
+  name: string;
+}
+
+export interface ValidationError {
+  isValid: false;
+  error: string;
+}
+
+export type ValidationResult = ValidationSuccess | ValidationError;
